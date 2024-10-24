@@ -72,19 +72,19 @@ class EventsPage extends StatelessWidget {
             _eventCard(
               'Exhibitions in San Francisco',
               'You might like these',
-              'https://example.com/image1.jpg',
+              'https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1708587459850DATOW92X2UBMKCTKJU85WVIEL',
             ),
             const SizedBox(height: 16),
             _eventCard(
               'Live music in SF',
               'Today · 8 events',
-              'https://example.com/image2.jpg',
+              'https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17261001711188BN8YGBEHEGLSF0LPVC6AKPDE',
             ),
             const SizedBox(height: 16),
             _eventCard(
               'Bay Area weekend markets',
               'Tomorrow · 2 events',
-              'https://example.com/image3.jpg',
+              'https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1728693015139BXTFE6DZGE2YT6I4DSD589I9C',
             ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
