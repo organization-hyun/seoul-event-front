@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:seoul_event/models/seoul_event_model.dart';
+import 'package:seoul_event/services/api_service.dart';
 import 'package:seoul_event/widgets/event_card.dart';
 import 'package:seoul_event/widgets/search_bar.dart';
 
-class EventsPage extends StatelessWidget {
-  const EventsPage({super.key});
+class EventListScreen extends StatelessWidget {
+  EventListScreen({super.key});
+
+  final Future<List<SeoulEventModel>> events = ApiService.getSeoulEvents();
 
   @override
   Widget build(BuildContext context) {
@@ -43,31 +47,40 @@ class EventsPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              // Event section "For You"
               const Text('For You',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 16),
-              const EventCard(
-                title: 'Exhibitions in San Francisco',
-                subtitle: 'You might like these',
-                imageUrl:
-                    'https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1708587459850DATOW92X2UBMKCTKJU85WVIEL',
+              FutureBuilder(
+                future: events,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics:
+                          const NeverScrollableScrollPhysics(), // 부모 스크롤에만 반응하도록 설정 가능
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        final event = snapshot.data![index];
+                        return Column(
+                          children: [
+                            EventCard(
+                              imageUrl: event.imageUrl,
+                              title: event.title,
+                              subtitle: "subtitle",
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
               ),
-              const SizedBox(height: 16),
-              const EventCard(
-                title: 'Live music in SF',
-                subtitle: 'Today · 8 events',
-                imageUrl:
-                    'https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17261001711188BN8YGBEHEGLSF0LPVC6AKPDE',
-              ),
-              const SizedBox(height: 16),
-              const EventCard(
-                title: 'Bay Area weekend markets',
-                subtitle: 'Tomorrow · 2 events',
-                imageUrl:
-                    'https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1728693015139BXTFE6DZGE2YT6I4DSD589I9C',
-              ),
-              const SizedBox(height: 16),
               ElevatedButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.location_on),
