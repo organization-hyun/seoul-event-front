@@ -19,7 +19,6 @@ class ApiService {
           eventInstances.add(SeoulEventModel.fromJson(event));
         }
       } catch (e) {
-        // print('Error parsing response: $e');
         throw Exception('Failed to parse event data');
       }
       return eventInstances;

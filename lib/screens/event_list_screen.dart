@@ -64,9 +64,10 @@ class EventListScreen extends StatelessWidget {
                         return Column(
                           children: [
                             EventCard(
-                              imageUrl: event.imageUrl,
                               title: event.title,
-                              subtitle: "subtitle",
+                              region: event.region,
+                              location: event.location,
+                              imageUrl: event.imageUrl,
                             ),
                             const SizedBox(
                               height: 16,

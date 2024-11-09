@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:seoul_event/screens/event_details_screen.dart';
 
 class EventCard extends StatelessWidget {
-  final String imageUrl;
   final String title;
-  final String subtitle;
+  final String region;
+  final String location;
+  final String imageUrl;
 
   const EventCard({
     super.key,
-    required this.imageUrl,
     required this.title,
-    required this.subtitle,
+    required this.region,
+    required this.location,
+    required this.imageUrl,
   });
 
   @override
@@ -54,8 +56,7 @@ class EventCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    subtitle,
-                    style: const TextStyle(color: Colors.grey),
+                    "$region | $location",
                   ),
                 ],
               ),
