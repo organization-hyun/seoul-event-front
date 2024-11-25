@@ -7,7 +7,7 @@ import 'package:seoul_event/widgets/search_bar.dart';
 class EventListScreen extends StatelessWidget {
   EventListScreen({super.key});
 
-  final Future<List<SeoulEventModel>> events = ApiService.getSeoulEvents();
+  final Future<List<SeoulEventModel>> eventList = ApiService.getSeoulEventList(0, 5);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class EventListScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 16),
               FutureBuilder(
-                future: events,
+                future: eventList,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(

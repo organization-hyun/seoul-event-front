@@ -7,17 +7,17 @@ class ApiService {
   static const String baseUrl = "http://localhost:8080";
   static const String events = "seoul-events";
 
-  static Future<List<SeoulEventModel>> getSeoulEvents() async {
+  static Future<List<SeoulEventModel>> getSeoulEventList(int page, int size) async {
     List<SeoulEventModel> eventInstances = [];
-    final url = Uri.parse('$baseUrl/$events');
+    final url = Uri.parse('$baseUrl/$events?page=$page&size=$size');
     final response = await http.get(url);
     if (response.statusCode == 200) {
       try {
-        final jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
-        final events = jsonResponse['seoulEvents'];
-        for (var event in events) {
-          eventInstances.add(SeoulEventModel.fromJson(event));
-        }
+        final data = jsonDecode(utf8.decode(response.bodyBytes));
+        final events = (data['content'] as List)
+            .map((e) => SeoulEventModel.fromJson(e))
+            .toList();
+        eventInstances.addAll(events);
       } catch (e) {
         throw Exception('Failed to parse event data');
       }
